@@ -1,10 +1,10 @@
-package com.bta.axondemo.application.aggregate;
+package com.bta.axondemo.application.account;
 
-import com.bta.axondemo.application.aggregate.commands.CreateAccountCommand;
-import com.bta.axondemo.application.aggregate.commands.CreditMoneyCommand;
-import com.bta.axondemo.application.aggregate.commands.DebitMoneyCommand;
+import com.bta.axondemo.application.account.commands.CreateAccountCommand;
+import com.bta.axondemo.application.account.commands.CreditMoneyCommand;
+import com.bta.axondemo.application.account.commands.DebitMoneyCommand;
 import com.bta.axondemo.domain.commons.Status;
-import com.bta.axondemo.domain.events.*;
+import com.bta.axondemo.domain.account.events.*;
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.commandhandling.model.AggregateIdentifier;
 import org.axonframework.commandhandling.model.AggregateLifecycle;

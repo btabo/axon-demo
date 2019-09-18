@@ -1,4 +1,4 @@
-package com.bta.axondemo.domain.events;
+package com.bta.axondemo.domain.account.events;
 
 import com.bta.axondemo.domain.commons.BaseEvent;
 import com.bta.axondemo.domain.commons.Status;

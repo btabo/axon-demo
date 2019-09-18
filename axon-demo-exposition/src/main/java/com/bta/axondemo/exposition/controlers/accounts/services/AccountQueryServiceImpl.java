@@ -1,4 +1,4 @@
-package com.bta.axondemo.exposition;
+package com.bta.axondemo.exposition.controlers.accounts.services;
 
 import org.axonframework.eventsourcing.eventstore.EventStore;
 import org.springframework.stereotype.Service;

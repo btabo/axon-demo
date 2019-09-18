@@ -1,8 +1,8 @@
-package com.bta.axondemo.exposition;
+package com.bta.axondemo.exposition.controlers.accounts.services;
 
-import com.bta.axondemo.exposition.dto.AccountCreateDTO;
-import com.bta.axondemo.exposition.dto.MoneyCreditDTO;
-import com.bta.axondemo.exposition.dto.MoneyDebitDTO;
+import com.bta.axondemo.exposition.controlers.accounts.dto.AccountCreateDTO;
+import com.bta.axondemo.exposition.controlers.accounts.dto.MoneyCreditDTO;
+import com.bta.axondemo.exposition.controlers.accounts.dto.MoneyDebitDTO;
 
 import java.util.concurrent.CompletableFuture;
 

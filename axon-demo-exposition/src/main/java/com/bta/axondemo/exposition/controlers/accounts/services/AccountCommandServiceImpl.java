@@ -1,11 +1,11 @@
-package com.bta.axondemo.exposition;
+package com.bta.axondemo.exposition.controlers.accounts.services;
 
-import com.bta.axondemo.application.aggregate.commands.CreateAccountCommand;
-import com.bta.axondemo.application.aggregate.commands.CreditMoneyCommand;
-import com.bta.axondemo.application.aggregate.commands.DebitMoneyCommand;
-import com.bta.axondemo.exposition.dto.AccountCreateDTO;
-import com.bta.axondemo.exposition.dto.MoneyCreditDTO;
-import com.bta.axondemo.exposition.dto.MoneyDebitDTO;
+import com.bta.axondemo.application.account.commands.CreateAccountCommand;
+import com.bta.axondemo.application.account.commands.CreditMoneyCommand;
+import com.bta.axondemo.application.account.commands.DebitMoneyCommand;
+import com.bta.axondemo.exposition.controlers.accounts.dto.AccountCreateDTO;
+import com.bta.axondemo.exposition.controlers.accounts.dto.MoneyCreditDTO;
+import com.bta.axondemo.exposition.controlers.accounts.dto.MoneyDebitDTO;
 import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.springframework.stereotype.Service;
 

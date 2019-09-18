@@ -1,4 +1,4 @@
-package com.bta.axondemo.application.aggregate.commands;
+package com.bta.axondemo.application.account.commands;
 
 import com.bta.axondemo.application.commons.BaseCommand;
 

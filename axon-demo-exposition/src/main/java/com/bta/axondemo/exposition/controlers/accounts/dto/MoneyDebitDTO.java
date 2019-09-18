@@ -1,4 +1,4 @@
-package com.bta.axondemo.exposition.dto;
+package com.bta.axondemo.exposition.controlers.accounts.dto;
 
 public class MoneyDebitDTO {
 
