@@ -2,9 +2,10 @@ package com.bta.axondemo.domain.plr.model;
 
 import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
 
 @Builder
-@Getter
+@Getter @Setter
 public class Profile {
 
     private String customerId;

@@ -1,14 +1,11 @@
 package com.bta.axondemo.exposition.controlers.plr;
 
-import com.bta.axondemo.exposition.controlers.accounts.dto.AccountCreateDTO;
 import com.bta.axondemo.exposition.controlers.plr.dto.PlrDTO;
+import com.bta.axondemo.exposition.controlers.plr.dto.SituationDTO;
 import com.bta.axondemo.exposition.controlers.plr.services.PlrCommandService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -23,6 +20,11 @@ public class PlrCommandController {
     @PostMapping
     public CompletableFuture<String> createPlr(@RequestBody PlrDTO plrDTO){
         return plrCommandService.createPlr(plrDTO);
+    }
+
+    @PutMapping(value = "/{plrId}/situation")
+    public CompletableFuture<String> putSituation(@PathVariable(value = "plrId") String plrId, @RequestBody SituationDTO situationDTO){
+        return plrCommandService.putSituation(plrId, situationDTO);
     }
 
 }
