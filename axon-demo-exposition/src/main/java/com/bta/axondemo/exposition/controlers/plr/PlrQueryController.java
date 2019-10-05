@@ -1,6 +1,6 @@
 package com.bta.axondemo.exposition.controlers.plr;
 
-import com.bta.axondemo.exposition.controlers.plr.services.PlrQueryService;
+import com.bta.axondemo.application.plr.services.queries.PlrQueryService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

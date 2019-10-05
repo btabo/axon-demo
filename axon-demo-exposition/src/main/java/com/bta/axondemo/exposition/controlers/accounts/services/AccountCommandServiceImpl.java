@@ -1,8 +1,8 @@
 package com.bta.axondemo.exposition.controlers.accounts.services;
 
-import com.bta.axondemo.application.account.commands.CreateAccountCommand;
-import com.bta.axondemo.application.account.commands.CreditMoneyCommand;
-import com.bta.axondemo.application.account.commands.DebitMoneyCommand;
+import com.bta.axondemo.domain.account.commands.CreateAccountCommand;
+import com.bta.axondemo.domain.account.commands.CreditMoneyCommand;
+import com.bta.axondemo.domain.account.commands.DebitMoneyCommand;
 import com.bta.axondemo.exposition.controlers.accounts.dto.AccountCreateDTO;
 import com.bta.axondemo.exposition.controlers.accounts.dto.MoneyCreditDTO;
 import com.bta.axondemo.exposition.controlers.accounts.dto.MoneyDebitDTO;

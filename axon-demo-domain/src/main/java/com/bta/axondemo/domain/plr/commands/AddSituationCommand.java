@@ -1,7 +1,7 @@
-package com.bta.axondemo.application.plr.commands;
+package com.bta.axondemo.domain.plr.commands;
 
 
-import com.bta.axondemo.application.commons.BaseCommand;
+import com.bta.axondemo.domain.commons.BaseCommand;
 
 import java.math.BigDecimal;
 

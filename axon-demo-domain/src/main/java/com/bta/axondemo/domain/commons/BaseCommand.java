@@ -1,4 +1,4 @@
-package com.bta.axondemo.application.commons;
+package com.bta.axondemo.domain.commons;
 
 import org.axonframework.modelling.command.TargetAggregateIdentifier;
 

@@ -1,4 +1,4 @@
-package com.bta.axondemo.domain.plr;
+package com.bta.axondemo.domain.plr.events;
 
 import com.bta.axondemo.domain.commons.BaseEvent;
 

@@ -1,10 +1,10 @@
-package com.bta.axondemo.application.plr;
+package com.bta.axondemo.domain.plr;
 
-import com.bta.axondemo.application.plr.commands.AddSituationCommand;
-import com.bta.axondemo.application.plr.commands.CreatePlrCommand;
-import com.bta.axondemo.domain.plr.PlrCreatedEvent;
-import com.bta.axondemo.domain.plr.PlrProfileAddedEvent;
-import com.bta.axondemo.domain.plr.SituationUpdatedEvent;
+import com.bta.axondemo.domain.plr.commands.AddSituationCommand;
+import com.bta.axondemo.domain.plr.commands.CreatePlrCommand;
+import com.bta.axondemo.domain.plr.events.PlrCreatedEvent;
+import com.bta.axondemo.domain.plr.events.PlrProfileAddedEvent;
+import com.bta.axondemo.domain.plr.events.SituationUpdatedEvent;
 import com.bta.axondemo.domain.plr.model.Profile;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -35,9 +35,7 @@ public class PlrAggregate {
     @CommandHandler
     public PlrAggregate(CreatePlrCommand createPlrCommand) {
         AggregateLifecycle.apply(new PlrCreatedEvent(createPlrCommand.id, createPlrCommand.plr.loanAmount, createPlrCommand.plr.loanTerm));
-        createPlrCommand.plr.profiles.forEach(p -> {
-            AggregateLifecycle.apply(new PlrProfileAddedEvent(createPlrCommand.id, p));
-        });
+        createPlrCommand.plr.profiles.forEach(p -> AggregateLifecycle.apply(new PlrProfileAddedEvent(createPlrCommand.id, p)));
     }
 
     @EventSourcingHandler

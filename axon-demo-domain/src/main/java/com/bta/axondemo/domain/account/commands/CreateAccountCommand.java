@@ -1,7 +1,7 @@
-package com.bta.axondemo.application.account.commands;
+package com.bta.axondemo.domain.account.commands;
 
 
-import com.bta.axondemo.application.commons.BaseCommand;
+import com.bta.axondemo.domain.commons.BaseCommand;
 
 public class CreateAccountCommand extends BaseCommand<String> {
 

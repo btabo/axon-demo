@@ -1,8 +1,8 @@
-package com.bta.axondemo.application.account;
+package com.bta.axondemo.domain.account;
 
-import com.bta.axondemo.application.account.commands.CreateAccountCommand;
-import com.bta.axondemo.application.account.commands.CreditMoneyCommand;
-import com.bta.axondemo.application.account.commands.DebitMoneyCommand;
+import com.bta.axondemo.domain.account.commands.CreateAccountCommand;
+import com.bta.axondemo.domain.account.commands.CreditMoneyCommand;
+import com.bta.axondemo.domain.account.commands.DebitMoneyCommand;
 import com.bta.axondemo.domain.account.events.*;
 import com.bta.axondemo.domain.commons.Status;
 import org.axonframework.commandhandling.CommandHandler;

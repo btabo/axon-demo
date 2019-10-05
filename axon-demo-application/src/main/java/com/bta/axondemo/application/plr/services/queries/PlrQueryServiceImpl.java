@@ -1,6 +1,7 @@
-package com.bta.axondemo.exposition.controlers.plr.services;
+package com.bta.axondemo.application.plr.services.queries;
 
 import org.axonframework.eventsourcing.eventstore.EventStore;
+import org.axonframework.messaging.Message;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,6 +18,6 @@ public class PlrQueryServiceImpl implements PlrQueryService {
 
     @Override
     public List<Object> getPlrEvents(String plrId) {
-        return eventStore.readEvents(plrId).asStream().map( s -> s.getPayload()).collect(Collectors.toList());
+        return eventStore.readEvents(plrId).asStream().map(Message::getPayload).collect(Collectors.toList());
     }
 }

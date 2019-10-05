@@ -17,17 +17,9 @@
             <groupId>com.bta.axondemo</groupId>
             <artifactId>axon-demo-domain</artifactId>
         </dependency>
-
         <dependency>
-            <groupId>org.axonframework</groupId>
-            <artifactId>axon-spring-boot-starter</artifactId>
-            <version>4.2</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>axon-server-connector</artifactId>
-                    <groupId>org.axonframework</groupId>
-                </exclusion>
-            </exclusions>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>

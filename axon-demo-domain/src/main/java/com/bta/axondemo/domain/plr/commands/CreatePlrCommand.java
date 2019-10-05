@@ -1,8 +1,8 @@
-package com.bta.axondemo.application.plr.commands;
+package com.bta.axondemo.domain.plr.commands;
 
 
-import com.bta.axondemo.application.commons.BaseCommand;
-import com.bta.axondemo.application.plr.PlrAggregate;
+import com.bta.axondemo.domain.commons.BaseCommand;
+import com.bta.axondemo.domain.plr.PlrAggregate;
 
 public class CreatePlrCommand extends BaseCommand<String> {
 
