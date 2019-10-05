@@ -21,7 +21,13 @@
         <dependency>
             <groupId>org.axonframework</groupId>
             <artifactId>axon-spring-boot-starter</artifactId>
-            <version>3.2</version>
+            <version>4.2</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>axon-server-connector</artifactId>
+                    <groupId>org.axonframework</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>

@@ -1,6 +1,6 @@
 package com.bta.axondemo.application.commons;
 
-import org.axonframework.commandhandling.TargetAggregateIdentifier;
+import org.axonframework.modelling.command.TargetAggregateIdentifier;
 
 public class BaseCommand<T> {
     @TargetAggregateIdentifier

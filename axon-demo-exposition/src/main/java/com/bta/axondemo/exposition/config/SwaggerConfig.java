@@ -18,7 +18,7 @@ import java.util.Collections;
 public class SwaggerConfig {
 
     @Bean
-    public Docket apiDocket(){
+    public Docket apiDocket() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.bta.axondemo.exposition"))
@@ -27,7 +27,7 @@ public class SwaggerConfig {
                 .apiInfo(getApiInfo());
     }
 
-    private ApiInfo getApiInfo(){
+    private ApiInfo getApiInfo() {
         return new ApiInfo(
                 "Event Sourcing using Axon and Spring Boot",
                 "App to demonstrate Event Sourcing using Axon and Spring Boot",
