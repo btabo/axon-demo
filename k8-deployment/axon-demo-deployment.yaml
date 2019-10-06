@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: axon-demo
+  labels:
+    app: axon-demo
+spec:
+  selector:
+    matchLabels:
+      app: axon-demo
+  template:
+    metadata:
+      labels:
+        app: axon-demo
+    spec:
+      containers:
+        - name: axon-demo
+          image: docker.io/library/axon-demo:local
+          ports:
+            - containerPort: 80
+
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: axon-demo
+  namespace: axon-demo
+  labels:
+    app: axon-demo
+spec:
+  type: NodePort
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+      nodePort: 30297
+  selector:
+    app: axon-demo
+  sessionAffinity: None
+  externalTrafficPolicy: Cluster
+status:
+  loadBalancer: {}

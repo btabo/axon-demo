@@ -1,0 +1,28 @@
+# Start Microk8s
+sudo microk8s.start
+
+
+# Get clusters IPs
+sudo microk8s.kubectl get all --all-namespaces
+
+
+## Get Dashboard Token
+sudo microk8s.kubectl -n kube-system get secret
+sudo microk8s.kubectl -n kube-system describe secret default-token-{xxxxxx}
+
+
+## Build image :
+/home/bta/SYNO_SYNC_UBUNTU/env_dev/apache-maven-3.5.4/bin/mvn clean compile com.google.cloud.tools:jib-maven-plugin:0.9.10:dockerBuild
+
+
+## Push docker image on MicroK8s
+docker save axon-demo > /home/bta/TMP/axon-demo.tar
+sudo microk8s.ctr -n k8s.io image import /home/bta/TMP/axon-demo.tar
+
+
+## Deploy service on MicroK8s
+sudo microk8s.kubectl create -f axon-demo-namesapace.json
+
+
+# GO API :
+http://<PUBLIC-IP>:<NodePort>/swagger-ui.html
