@@ -1,0 +1,10 @@
+{
+  "apiVersion": "v1",
+  "kind": "Namespace",
+  "metadata": {
+    "name": "axon-demo",
+    "labels": {
+      "name": "axon-demo"
+    }
+  }
+}

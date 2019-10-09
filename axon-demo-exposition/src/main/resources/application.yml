@@ -1,0 +1,21 @@
+spring:
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+  datasource:
+    url: jdbc:postgresql://192.168.0.20:5432/axon-demo
+    username: postgres
+    password: changeme
+    driverClassName: org.postgresql.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQL9Dialect
+    hibernate.ddl-auto: update
+    properties.hibernate.jdbc.lob.non_contextual_creation: true
+
+logging:
+  level:
+    root: INFO
+    org.springframework.web: ERROR
+    org.hibernate.SQL: DEBUG
+    org.h2: DEBUG
