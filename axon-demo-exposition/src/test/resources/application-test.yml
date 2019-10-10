@@ -10,7 +10,7 @@ spring:
     password: test
     driverClassName: org.h2.Driver
   jpa:
-    database-platform: org.hibernate.dialect.PostgreSQL95Dialect
+    database-platform: org.hibernate.dialect.PostgreSQL9Dialect
     generate-ddl: true
 
 logging:

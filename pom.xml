@@ -27,6 +27,7 @@
     <properties>
         <java.version>1.8</java.version>
         <docker.image.prefix>springio</docker.image.prefix>
+        <spring.profiles.active>k8</spring.profiles.active>
     </properties>
 
     <dependencyManagement>

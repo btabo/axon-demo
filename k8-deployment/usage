@@ -22,7 +22,7 @@ sudo microk8s.ctr -n k8s.io image import /home/bta/TMP/axon-demo.tar
 
 ## Deploy service on MicroK8s
 sudo microk8s.kubectl create -f axon-demo-namesapace.json
-
+sudo microk8s.kubectl -n axon-demo create -f axon-demo-deployment.yaml
 
 # GO API :
 http://<PUBLIC-IP>:<NodePort>/swagger-ui.html
