@@ -1,6 +1,5 @@
 package com.bta.axondemo.domain.commons;
 
-
 public class BaseEvent<T> {
     public final T id;
     public BaseEvent(T id) {

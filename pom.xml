@@ -6,7 +6,7 @@
     <packaging>pom</packaging>
     <groupId>com.bta.axondemo</groupId>
     <artifactId>axon-demo-parent</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0-SNAPSHOT</version>
     <name>axon-demo-parent</name>
     <description>Axon-Demo</description>
 
@@ -27,7 +27,8 @@
     <properties>
         <java.version>1.8</java.version>
         <docker.image.prefix>springio</docker.image.prefix>
-        <spring.profiles.active>k8</spring.profiles.active>
+        <spring.profiles.active>dev</spring.profiles.active>
+        <release.train.version>Greenwich.RELEASE</release.train.version>
     </properties>
 
     <dependencyManagement>
@@ -56,6 +57,13 @@
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
                 <version>1.18.10</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${release.train.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>

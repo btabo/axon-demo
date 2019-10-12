@@ -6,61 +6,104 @@ import com.bta.axondemo.domain.plr.events.PlrCreatedEvent;
 import com.bta.axondemo.domain.plr.events.PlrProfileAddedEvent;
 import com.bta.axondemo.domain.plr.events.SituationUpdatedEvent;
 import com.bta.axondemo.domain.plr.model.Profile;
+import com.bta.axondemo.domain.plr.model.Profiles;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.eventsourcing.EventSourcingHandler;
 import org.axonframework.modelling.command.AggregateIdentifier;
 import org.axonframework.modelling.command.AggregateLifecycle;
+import org.axonframework.modelling.command.AggregateMember;
 import org.axonframework.spring.stereotype.Aggregate;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
 
 @Aggregate
-@Builder @AllArgsConstructor @NoArgsConstructor
+@Builder
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
+@Slf4j
 public class PlrAggregate {
 
+    /**
+     * PLR ID
+     **/
     @AggregateIdentifier
     private String plrId;
 
+    /**
+     * Montant du prêt demandé
+     **/
     private BigDecimal loanAmount;
+
+    /**
+     * Durée du pret demandé
+     **/
     private Integer loanTerm;
-    private List<Profile> profiles = new ArrayList<>();
 
-    private  BigDecimal revenues;
+    /**
+     * Montant cummulé des revenus mensuels des emprunteurs
+     **/
+    private BigDecimal revenues;
 
-    @CommandHandler
-    public PlrAggregate(CreatePlrCommand createPlrCommand) {
-        AggregateLifecycle.apply(new PlrCreatedEvent(createPlrCommand.id, createPlrCommand.plr.loanAmount, createPlrCommand.plr.loanTerm));
-        createPlrCommand.plr.profiles.forEach(p -> AggregateLifecycle.apply(new PlrProfileAddedEvent(createPlrCommand.id, p)));
-    }
+    /**
+     * Liste des profiles emprunteurs
+     **/
+    @AggregateMember
+    @Builder.Default
+    private Profiles profiles = Profiles.builder().build();
 
-    @EventSourcingHandler
-    protected void on(PlrCreatedEvent plrCreatedEvent) {
-        this.plrId = plrCreatedEvent.id;
-        this.loanAmount = plrCreatedEvent.loanAmount;
-        this.loanTerm = plrCreatedEvent.loanTerm;
-    }
-
-    @EventSourcingHandler
-    protected void on(PlrProfileAddedEvent plrProfileAddedEvent) {
-        this.profiles.add(Profile.builder()
-                .customerId(plrProfileAddedEvent.customerId)
-                .insuranceFormula(plrProfileAddedEvent.insuranceFormula)
-                .insuranceType(plrProfileAddedEvent.insuranceType)
-                .build());
+    public static class PlrAggregateBuilder {
+        public PlrAggregateBuilder fromPlr(PlrAggregate plr) {
+            this.plrId = plr.plrId;
+            this.loanAmount = plr.loanAmount;
+            this.loanTerm = plr.loanTerm;
+            this.revenues = plr.revenues;
+            return this;
+        }
     }
 
     @CommandHandler
-    public void on(AddSituationCommand addSituationCommand) {
-        AggregateLifecycle.apply(new SituationUpdatedEvent(addSituationCommand.id, addSituationCommand.revenues));
+    public PlrAggregate(CreatePlrCommand command) {
+        log.debug("Processing Command = " + command.toString());
+        AggregateLifecycle.apply(new PlrCreatedEvent(command.id, command.plr.loanAmount, command.plr.loanTerm));
+        command.plr.profiles.getProfiles().forEach(p -> AggregateLifecycle.apply(new PlrProfileAddedEvent(command.id, p)));
     }
 
     @EventSourcingHandler
-    protected void on(SituationUpdatedEvent situationUpdatedEvent) {
-        this.revenues = situationUpdatedEvent.revenues;
+    protected void on(PlrCreatedEvent event) {
+        log.debug("Applying Event = " + event.toString());
+        this.plrId = event.id;
+        this.loanAmount = event.loanAmount;
+        this.loanTerm = event.loanTerm;
+    }
+
+    @EventSourcingHandler
+    protected void on(PlrProfileAddedEvent event) {
+        log.debug("Applying Event = " + event.toString());
+        this.profiles = Profiles.builder()
+                .fromProfiles(this.profiles)
+                .profile(Profile.builder()
+                        .customerId(event.customerId)
+                        .insuranceFormula(event.insuranceFormula)
+                        .insuranceType(event.insuranceType)
+                        .build())
+                .build();
+    }
+
+    @CommandHandler
+    public void on(AddSituationCommand command) {
+        log.debug("Processing Command = " + command.toString());
+        AggregateLifecycle.apply(new SituationUpdatedEvent(command.id, command.revenues));
+    }
+
+    @EventSourcingHandler
+    protected void on(SituationUpdatedEvent event) {
+        log.debug("Applying Event = " + event.toString());
+        this.revenues = event.revenues;
     }
 }

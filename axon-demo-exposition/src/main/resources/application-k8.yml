@@ -1,9 +1,10 @@
 spring:
   datasource:
-    url: jdbc:postgresql://192.168.0.20:5432/axon-demo
+    url: jdbc:postgresql://postgres:5432/axon-demo
     username: postgres
     password: changeme
     driverClassName: org.postgresql.Driver
+  flyway.baseline-on-migrate: true
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQL9Dialect
     hibernate.ddl-auto: update
