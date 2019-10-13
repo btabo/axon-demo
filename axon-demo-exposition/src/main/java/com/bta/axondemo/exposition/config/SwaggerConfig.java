@@ -29,11 +29,11 @@ public class SwaggerConfig {
 
     private ApiInfo getApiInfo() {
         return new ApiInfo(
-                "Event Sourcing using Axon and Spring Boot",
+                "Axon-demo",
                 "App to demonstrate Event Sourcing using Axon and Spring Boot",
                 "1.0.0",
                 "Terms of Service",
-                new Contact("Saurabh Dashora", "progressivecoder.com", "coder.progressive@gmail.com"),
+                new Contact("Bertrand Taboulet", "", "bertrand.taboulet@gmail.com"),
                 "",
                 "",
                 Collections.emptyList());

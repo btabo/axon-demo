@@ -13,8 +13,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.Instant;
+import java.time.LocalDate;
+import java.time.temporal.TemporalUnit;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
+
+import static java.time.temporal.ChronoUnit.DAYS;
+import static java.time.temporal.ChronoUnit.YEARS;
 
 @RestController(value = "Rebuild projections")
 @RequestMapping(value = "/api/rebuild")
@@ -39,24 +45,15 @@ public class RebuildsController {
     }
 
     @GetMapping("rebuild")
-    public ResponseEntity<String> rebuild(@RequestParam(name = "instant") Instant instant) {
-        if (null != instant) {
-            eventProcessingConfiguration.eventProcessors().values().stream()
-                    .filter(processor -> processor instanceof TrackingEventProcessor)
-                    .forEach(processor -> {
-                        ((TrackingEventProcessor) processor).shutDown();
-                        ((TrackingEventProcessor) processor).resetTokens(streamableMessageSource -> streamableMessageSource.createTokenAt(instant));
-                        ((TrackingEventProcessor) processor).start();
-                    });
-        } else {
-            eventProcessingConfiguration.eventProcessors().values().stream()
-                    .filter(processor -> processor instanceof TrackingEventProcessor)
-                    .forEach(processor -> {
-                        ((TrackingEventProcessor) processor).shutDown();
-                        ((TrackingEventProcessor) processor).resetTokens();
-                        ((TrackingEventProcessor) processor).start();
-                    });
-        }
+    public ResponseEntity<String> rebuild(@RequestParam(name = "fromDate", required = false) LocalDate fromDate) {
+        Instant instant = Optional.ofNullable(fromDate).map(date -> Instant.from(date)).orElse(Instant.MIN.plus(1000, DAYS));
+        eventProcessingConfiguration.eventProcessors().values().stream()
+                .filter(processor -> processor instanceof TrackingEventProcessor)
+                .forEach(processor -> {
+                    processor.shutDown();
+                    ((TrackingEventProcessor) processor).resetTokens(streamableMessageSource -> streamableMessageSource.createTokenAt(instant));
+                    processor.start();
+                });
         return ResponseEntity.ok("Rebuild in progess");
     }
 

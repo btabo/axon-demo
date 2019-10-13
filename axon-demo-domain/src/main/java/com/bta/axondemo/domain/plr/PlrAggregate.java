@@ -54,8 +54,7 @@ public class PlrAggregate {
      * Liste des profiles emprunteurs
      **/
     @AggregateMember
-    @Builder.Default
-    private Profiles profiles = Profiles.builder().build();
+    private Profiles profiles;
 
     public static class PlrAggregateBuilder {
         public PlrAggregateBuilder fromPlr(PlrAggregate plr) {
@@ -63,6 +62,7 @@ public class PlrAggregate {
             this.loanAmount = plr.loanAmount;
             this.loanTerm = plr.loanTerm;
             this.revenues = plr.revenues;
+            this.profiles = plr.profiles;
             return this;
         }
     }

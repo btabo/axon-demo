@@ -69,7 +69,7 @@ public class PlrQueryServiceImpl implements PlrQueryService {
         plrRepository.getById(event.id).ifPresent(plr -> plrRepository.save(PlrAggregate.builder()
                 .fromPlr(plr)
                 .plrId(event.id)
-                .loanAmount(event.revenues)
+                .revenues(event.revenues)
                 .build()));
     }
 
