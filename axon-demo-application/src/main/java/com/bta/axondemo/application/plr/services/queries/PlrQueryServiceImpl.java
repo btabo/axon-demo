@@ -6,6 +6,7 @@ import com.bta.axondemo.domain.plr.events.PlrProfileAddedEvent;
 import com.bta.axondemo.domain.plr.events.SituationUpdatedEvent;
 import com.bta.axondemo.domain.plr.model.Profile;
 import com.bta.axondemo.domain.plr.model.Profiles;
+import com.bta.axondemo.domain.plr.model.TransactionDescription;
 import com.bta.axondemo.domain.projections.PlrRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -42,8 +43,10 @@ public class PlrQueryServiceImpl implements PlrQueryService {
         log.debug("Updating Projection = " + event.toString());
         plrRepository.save(PlrAggregate.builder()
                 .plrId(event.id)
-                .loanAmount(event.loanAmount)
-                .loanTerm(event.loanTerm)
+                .transactionDescription(TransactionDescription.builder()
+                        .loanAmount(event.loanAmount)
+                        .loanTerm(event.loanTerm)
+                        .build())
                 .build());
     }
 

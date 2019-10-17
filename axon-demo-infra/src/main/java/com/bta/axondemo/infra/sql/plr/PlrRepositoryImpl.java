@@ -3,6 +3,7 @@ package com.bta.axondemo.infra.sql.plr;
 import com.bta.axondemo.domain.plr.PlrAggregate;
 import com.bta.axondemo.domain.plr.model.Profile;
 import com.bta.axondemo.domain.plr.model.Profiles;
+import com.bta.axondemo.domain.plr.model.TransactionDescription;
 import com.bta.axondemo.domain.projections.PlrRepository;
 import com.bta.axondemo.infra.sql.plr.model.PlrEntity;
 import com.bta.axondemo.infra.sql.plr.model.ProfileEntity;
@@ -35,8 +36,8 @@ public class PlrRepositoryImpl implements PlrRepository {
 
     private Optional<PlrEntity> toJpa(Optional<PlrAggregate> plr) {
         return plr.map(p -> PlrEntity.builder()
-                .loanAmount(p.getLoanAmount())
-                .loanTerm(p.getLoanTerm())
+                .loanAmount(p.getTransactionDescription().getLoanAmount())
+                .loanTerm(p.getTransactionDescription().getLoanTerm())
                 .plrId(p.getPlrId())
                 .profiles(Optional.ofNullable(p.getProfiles()).map(Profiles::getProfiles).orElse(new ArrayList<>()).stream()
                         .map(profile -> ProfileEntity.builder()
@@ -52,8 +53,10 @@ public class PlrRepositoryImpl implements PlrRepository {
 
     private Optional<PlrAggregate> toDomain(Optional<PlrEntity> plr) {
         return plr.map(p -> PlrAggregate.builder()
-                .loanAmount(p.getLoanAmount())
-                .loanTerm(p.getLoanTerm())
+                .transactionDescription(TransactionDescription.builder()
+                        .loanAmount(p.getLoanAmount())
+                        .loanTerm(p.getLoanTerm())
+                        .build())
                 .plrId(p.getPlrId())
                 .profiles(Profiles.builder()
                         .profiles(Optional.ofNullable(p.getProfiles()).orElse(new HashSet<>()).stream()

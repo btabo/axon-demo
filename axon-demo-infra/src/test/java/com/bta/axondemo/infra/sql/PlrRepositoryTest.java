@@ -3,6 +3,7 @@ package com.bta.axondemo.infra.sql;
 import com.bta.axondemo.domain.plr.PlrAggregate;
 import com.bta.axondemo.domain.plr.model.Profile;
 import com.bta.axondemo.domain.plr.model.Profiles;
+import com.bta.axondemo.domain.plr.model.TransactionDescription;
 import com.bta.axondemo.domain.projections.PlrRepository;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,8 +30,10 @@ public class PlrRepositoryTest extends AbstractInfraTest {
 
     private static PlrAggregate buildSimplePlr() {
         return PlrAggregate.builder()
-                .loanAmount(new BigDecimal(100000))
-                .loanTerm(120)
+                .transactionDescription(TransactionDescription.builder()
+                        .loanAmount(new BigDecimal(100000))
+                        .loanTerm(120)
+                        .build())
                 .profiles(Profiles.builder()
                         .profiles(Arrays.asList(Profile.builder()
                                 .customerId("1234")

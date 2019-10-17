@@ -30,8 +30,8 @@ public class PlrDTO {
 
     public static PlrDTO toDTO(PlrAggregate plr) {
         return PlrDTO.builder()
-                .loanAmount(plr.getLoanAmount())
-                .loanTerm(plr.getLoanTerm())
+                .loanAmount(plr.getTransactionDescription().getLoanAmount())
+                .loanTerm(plr.getTransactionDescription().getLoanTerm())
                 .plrId(plr.getPlrId())
                 .profiles(Optional.ofNullable(plr.getProfiles()).map(Profiles::getProfiles).orElse(new ArrayList<>()).stream()
                         .map(p -> ProfileDTO.builder()

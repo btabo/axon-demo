@@ -7,6 +7,7 @@ import com.bta.axondemo.domain.plr.events.PlrProfileAddedEvent;
 import com.bta.axondemo.domain.plr.events.SituationUpdatedEvent;
 import com.bta.axondemo.domain.plr.model.Profile;
 import com.bta.axondemo.domain.plr.model.Profiles;
+import com.bta.axondemo.domain.plr.model.TransactionDescription;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -36,16 +37,6 @@ public class PlrAggregate {
     private String plrId;
 
     /**
-     * Montant du prêt demandé
-     **/
-    private BigDecimal loanAmount;
-
-    /**
-     * Durée du pret demandé
-     **/
-    private Integer loanTerm;
-
-    /**
      * Montant cummulé des revenus mensuels des emprunteurs
      **/
     private BigDecimal revenues;
@@ -56,11 +47,16 @@ public class PlrAggregate {
     @AggregateMember
     private Profiles profiles;
 
+    /**
+     * Description de l'opération financière
+     **/
+    @AggregateMember
+    private TransactionDescription transactionDescription;
+
     public static class PlrAggregateBuilder {
         public PlrAggregateBuilder fromPlr(PlrAggregate plr) {
             this.plrId = plr.plrId;
-            this.loanAmount = plr.loanAmount;
-            this.loanTerm = plr.loanTerm;
+            this.transactionDescription = plr.transactionDescription;
             this.revenues = plr.revenues;
             this.profiles = plr.profiles;
             return this;
@@ -70,7 +66,7 @@ public class PlrAggregate {
     @CommandHandler
     public PlrAggregate(CreatePlrCommand command) {
         log.debug("Processing Command = " + command.toString());
-        AggregateLifecycle.apply(new PlrCreatedEvent(command.id, command.plr.loanAmount, command.plr.loanTerm));
+        AggregateLifecycle.apply(new PlrCreatedEvent(command.id, command.plr.transactionDescription.getLoanAmount(), command.plr.transactionDescription.getLoanTerm()));
         command.plr.profiles.getProfiles().forEach(p -> AggregateLifecycle.apply(new PlrProfileAddedEvent(command.id, p)));
     }
 
@@ -78,8 +74,10 @@ public class PlrAggregate {
     protected void on(PlrCreatedEvent event) {
         log.debug("Applying Event = " + event.toString());
         this.plrId = event.id;
-        this.loanAmount = event.loanAmount;
-        this.loanTerm = event.loanTerm;
+        this.transactionDescription = TransactionDescription.builder().fromTransactionDescription(this.transactionDescription)
+                .loanAmount(event.loanAmount)
+                .loanTerm(event.loanTerm)
+                .build();
     }
 
     @EventSourcingHandler

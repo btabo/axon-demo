@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+import static com.bta.axondemo.exposition.rest.plr.mapper.PlrMapper.toDto;
+
 @RestController(value = "PLR Queries")
 @RequestMapping(value = "/api/plr")
 @Api(value = "Property Loan Request Queries", description = "PLR Query Events Endpoint", tags = "PLR Queries")
@@ -28,7 +30,7 @@ public class PlrQueryController {
 
     @GetMapping("/{plrId}")
     public ResponseEntity<PlrDTO> getPlr(@PathVariable(value = "plrId") String plrId) {
-        return plrQueryService.getPlr(plrId).map(plr -> new ResponseEntity(plr, HttpStatus.OK))
+        return plrQueryService.getPlr(plrId).map(plr -> new ResponseEntity(toDto(plr), HttpStatus.OK))
                 .orElse(new ResponseEntity(HttpStatus.NOT_FOUND));
     }
 }
