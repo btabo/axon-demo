@@ -1,9 +1,9 @@
 package com.bta.axondemo.application.plr.services.queries;
 
 import com.bta.axondemo.domain.plr.PlrAggregate;
-import com.bta.axondemo.domain.plr.events.PlrCreatedEvent;
-import com.bta.axondemo.domain.plr.events.PlrProfileAddedEvent;
-import com.bta.axondemo.domain.plr.events.SituationUpdatedEvent;
+import com.bta.axondemo.domain.plr.events.v1.PlrCreatedEvent;
+import com.bta.axondemo.domain.plr.events.v1.PlrProfileAddedEvent;
+import com.bta.axondemo.domain.plr.events.v2.SituationUpdatedEvent;
 import com.bta.axondemo.domain.plr.model.Profile;
 import com.bta.axondemo.domain.plr.model.Profiles;
 import com.bta.axondemo.domain.plr.model.TransactionDescription;
@@ -73,6 +73,7 @@ public class PlrQueryServiceImpl implements PlrQueryService {
                 .fromPlr(plr)
                 .plrId(event.id)
                 .revenues(event.revenues)
+                .charges(event.charges)
                 .build()));
     }
 

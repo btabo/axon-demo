@@ -29,8 +29,8 @@ public class PlrCommandServiceImpl implements PlrCommandService {
     }
 
     @Override
-    public CompletableFuture<String> putSituation(String plrId, BigDecimal revenues) {
-        AddSituationCommand cmd = new AddSituationCommand(plrId, revenues);
+    public CompletableFuture<String> putSituation(String plrId, BigDecimal revenues, BigDecimal charges) {
+        AddSituationCommand cmd = new AddSituationCommand(plrId, revenues, charges);
         log.debug("Sending command = " + cmd.toString());
         return commandGateway.send(cmd);
     }

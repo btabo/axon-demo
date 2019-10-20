@@ -9,6 +9,6 @@ public interface PlrCommandService {
 
     CompletableFuture<String> createPlr(PlrAggregate plr);
 
-    CompletableFuture<String> putSituation(String plrId, BigDecimal revenues);
+    CompletableFuture<String> putSituation(String plrId, BigDecimal revenues, BigDecimal charges);
 
 }

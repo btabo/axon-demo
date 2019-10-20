@@ -2,9 +2,9 @@ package com.bta.axondemo.domain.plr;
 
 import com.bta.axondemo.domain.plr.commands.AddSituationCommand;
 import com.bta.axondemo.domain.plr.commands.CreatePlrCommand;
-import com.bta.axondemo.domain.plr.events.PlrCreatedEvent;
-import com.bta.axondemo.domain.plr.events.PlrProfileAddedEvent;
-import com.bta.axondemo.domain.plr.events.SituationUpdatedEvent;
+import com.bta.axondemo.domain.plr.events.v1.PlrCreatedEvent;
+import com.bta.axondemo.domain.plr.events.v1.PlrProfileAddedEvent;
+import com.bta.axondemo.domain.plr.events.v2.SituationUpdatedEvent;
 import com.bta.axondemo.domain.plr.model.Profile;
 import com.bta.axondemo.domain.plr.model.Profiles;
 import com.bta.axondemo.domain.plr.model.TransactionDescription;
@@ -40,6 +40,11 @@ public class PlrAggregate {
      * Montant cummulé des revenus mensuels des emprunteurs
      **/
     private BigDecimal revenues;
+
+    /**
+     * Montant cummulé des revenus mensuels des emprunteurs
+     **/
+    private BigDecimal charges;
 
     /**
      * Liste des profiles emprunteurs
@@ -96,12 +101,13 @@ public class PlrAggregate {
     @CommandHandler
     public void on(AddSituationCommand command) {
         log.debug("Processing Command = " + command.toString());
-        AggregateLifecycle.apply(new SituationUpdatedEvent(command.id, command.revenues));
+        AggregateLifecycle.apply(new SituationUpdatedEvent(command.id, command.revenues, command.charges));
     }
 
     @EventSourcingHandler
     protected void on(SituationUpdatedEvent event) {
         log.debug("Applying Event = " + event.toString());
         this.revenues = event.revenues;
+        this.charges = event.charges;
     }
 }

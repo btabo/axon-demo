@@ -11,4 +11,5 @@ import java.math.BigDecimal;
 @Getter
 public class SituationDTO {
     private BigDecimal revenues;
+    private BigDecimal charges;
 }

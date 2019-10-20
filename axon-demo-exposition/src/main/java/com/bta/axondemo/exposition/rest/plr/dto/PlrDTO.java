@@ -27,6 +27,9 @@ public class PlrDTO {
 
     private List<ProfileDTO> profiles;
 
+    private BigDecimal revenues;
+
+    private BigDecimal charges;
 
     public static PlrDTO toDTO(PlrAggregate plr) {
         return PlrDTO.builder()
@@ -40,6 +43,8 @@ public class PlrDTO {
                                 .insuranceType(p.getInsuranceType())
                                 .build())
                         .collect(Collectors.toList()))
+                .charges(plr.getCharges())
+                .revenues(plr.getCharges())
                 .build();
     }
 

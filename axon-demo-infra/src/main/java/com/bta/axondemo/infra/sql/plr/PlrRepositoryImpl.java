@@ -48,6 +48,7 @@ public class PlrRepositoryImpl implements PlrRepository {
                                 .build())
                         .collect(Collectors.toSet()))
                 .revenues(p.getRevenues())
+                .charges(p.getCharges())
                 .build());
     }
 
@@ -68,6 +69,7 @@ public class PlrRepositoryImpl implements PlrRepository {
                                 .collect(Collectors.toList()))
                         .build())
                 .revenues(p.getRevenues())
+                .charges(p.getCharges())
                 .build());
     }
 }

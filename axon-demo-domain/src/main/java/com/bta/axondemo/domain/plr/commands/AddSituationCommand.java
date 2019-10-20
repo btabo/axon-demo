@@ -11,9 +11,11 @@ import java.math.BigDecimal;
 public class AddSituationCommand extends BaseCommand<String> {
 
     public final BigDecimal revenues;
+    public final BigDecimal charges;
 
-    public AddSituationCommand(String plrId, BigDecimal revenues) {
+    public AddSituationCommand(String plrId, BigDecimal revenues, BigDecimal charges) {
         super(plrId);
         this.revenues = revenues;
+        this.charges = charges;
     }
 }

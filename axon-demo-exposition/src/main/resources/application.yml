@@ -9,3 +9,9 @@ logging:
     org.springframework.web: ERROR
     org.hibernate.SQL: INFO
     org.h2: INFO
+
+axon:
+  serializer:
+    general: JACKSON
+    events: JACKSON
+    messages: JACKSON

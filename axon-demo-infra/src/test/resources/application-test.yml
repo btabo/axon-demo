@@ -14,7 +14,7 @@ spring:
       poolName: HikariPoolZZZ
   jpa:
     generate-ddl: true
-    #database-platform: org.hibernate.dialect.PostgreSQL9Dialect
+    database-platform: org.hibernate.dialect.MySQL57Dialect
 
 logging:
   level:
@@ -22,3 +22,10 @@ logging:
     org.springframework.web: ERROR
     org.hibernate.SQL: DEBUG
     org.h2: DEBUG
+
+axon:
+  serializer:
+    general: JACKSON
+    events: JACKSON
+    messages: JACKSON
+

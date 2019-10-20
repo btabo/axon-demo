@@ -25,6 +25,8 @@ public class PlrMapper {
                                 .customerId(p.getCustomerId())
                                 .build())
                         .collect(Collectors.toList()))
+                .charges(plr.getCharges())
+                .revenues(plr.getRevenues())
                 .build();
     }
 
@@ -43,6 +45,8 @@ public class PlrMapper {
                                         .build())
                                 .collect(Collectors.toList()))
                         .build())
+                .charges(dto.getCharges())
+                .revenues(dto.getRevenues())
                 .build();
     }
 }

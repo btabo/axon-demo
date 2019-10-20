@@ -28,4 +28,6 @@ public class PlrEntity {
 
     private BigDecimal revenues;
 
+    private BigDecimal charges;
+
 }

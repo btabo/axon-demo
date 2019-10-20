@@ -26,7 +26,7 @@ public class PlrCommandController {
 
     @PutMapping(value = "/{plrId}/situation")
     public CompletableFuture<String> putSituation(@PathVariable(value = "plrId") String plrId, @RequestBody SituationDTO situationDTO) {
-        return plrCommandService.putSituation(plrId, situationDTO.getRevenues());
+        return plrCommandService.putSituation(plrId, situationDTO.getRevenues(), situationDTO.getCharges());
     }
 
 }
