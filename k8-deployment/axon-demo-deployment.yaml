@@ -45,27 +45,25 @@ status:
 kind: Service
 apiVersion: v1
 metadata:
-  name: postgres
+  name: mysql
 spec:
   ports:
-    -
-      name: postgres
+    - name: mysql
       protocol: TCP
-      port: 5432
-      targetPort: 5432
+      port: 3306
+      targetPort: 3306
       nodePort: 0
 
 ---
 kind: Endpoints
 apiVersion: v1
 metadata:
-  name: postgres
+  name: mysql
 subsets:
   -
     addresses:
       -
         ip: 192.168.0.20
     ports:
-      -
-        port: 5432
-        name: postgres
+      - port: 3306
+        name: mysql

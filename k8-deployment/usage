@@ -2,8 +2,8 @@
 sudo microk8s.start
 
 
-# Get clusters IPs
-sudo microk8s.kubectl get all --all-namespaces
+# Get clusters IPs & url
+sudo microk8s.kubectl get all --all-namespaces | grep service/kubernetes-dashboard
 
 
 ## Get Dashboard Token
@@ -26,3 +26,4 @@ sudo microk8s.kubectl -n axon-demo create -f axon-demo-deployment.yaml
 
 # GO API :
 http://<PUBLIC-IP>:<NodePort>/swagger-ui.html
+http://<PUBLIC-IP>:30297/swagger-ui.html
