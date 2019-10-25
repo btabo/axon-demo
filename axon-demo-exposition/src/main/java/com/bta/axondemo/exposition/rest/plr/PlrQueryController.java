@@ -1,6 +1,6 @@
 package com.bta.axondemo.exposition.rest.plr;
 
-import com.bta.axondemo.application.plr.services.queries.PlrQueryService;
+import com.bta.axondemo.application.plr.services.queries.plr.PlrQueryService;
 import com.bta.axondemo.exposition.rest.plr.dto.PlrDTO;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;

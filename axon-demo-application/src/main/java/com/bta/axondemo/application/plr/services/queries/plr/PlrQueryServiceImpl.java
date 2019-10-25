@@ -1,4 +1,4 @@
-package com.bta.axondemo.application.plr.services.queries;
+package com.bta.axondemo.application.plr.services.queries.plr;
 
 import com.bta.axondemo.domain.plr.PlrAggregate;
 import com.bta.axondemo.domain.plr.events.v1.PlrCreatedEvent;

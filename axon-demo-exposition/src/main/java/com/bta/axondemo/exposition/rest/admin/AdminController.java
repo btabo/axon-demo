@@ -1,5 +1,6 @@
-package com.bta.axondemo.exposition.rest.rebuilds;
+package com.bta.axondemo.exposition.rest.admin;
 
+import com.bta.axondemo.application.plr.services.commands.admin.EventStoreAdminServices;
 import io.swagger.annotations.Api;
 import org.axonframework.config.EventProcessingConfiguration;
 import org.axonframework.eventhandling.EventProcessor;
@@ -7,35 +8,32 @@ import org.axonframework.eventhandling.EventTrackerStatus;
 import org.axonframework.eventhandling.TrackingEventProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.Instant;
 import java.time.LocalDate;
-import java.time.temporal.TemporalUnit;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static java.time.temporal.ChronoUnit.DAYS;
-import static java.time.temporal.ChronoUnit.YEARS;
 
 @RestController(value = "Rebuild projections")
-@RequestMapping(value = "/api/rebuild")
-@Api(value = "Rebuild projections", description = "Rebuild projections", tags = "Rebuild projections")
-public class RebuildsController {
+@RequestMapping(value = "/api/admin")
+@Api(value = "Admin resource", description = "Rebuild projections & upgrade Event Store", tags = "Admin resource")
+public class AdminController {
 
     private final EventProcessingConfiguration eventProcessingConfiguration;
+    private final EventStoreAdminServices eventStoreAdminServices;
 
     @Autowired
-    public RebuildsController(EventProcessingConfiguration eventProcessingConfiguration) {
+    public AdminController(EventProcessingConfiguration eventProcessingConfiguration, EventStoreAdminServices eventStoreAdminServices) {
         this.eventProcessingConfiguration = eventProcessingConfiguration;
+        this.eventStoreAdminServices = eventStoreAdminServices;
     }
 
-    @GetMapping("rebuild-status")
-    public Map<String, Map<Integer, EventTrackerStatus>> rebuildStatus() {
+    @GetMapping("read-model/rebuild-status")
+    public Map<String, Map<Integer, EventTrackerStatus>> readModelRebuildStatus() {
         Map<String, EventProcessor> eventProcessors = eventProcessingConfiguration.eventProcessors();
         return eventProcessors.values().stream()
                 .filter(processor -> processor instanceof TrackingEventProcessor)
@@ -44,8 +42,8 @@ public class RebuildsController {
                 ));
     }
 
-    @GetMapping("rebuild")
-    public ResponseEntity<String> rebuild(@RequestParam(name = "fromDate", required = false) LocalDate fromDate) {
+    @GetMapping("read-model")
+    public ResponseEntity<String> readModelRebuild(@RequestParam(name = "fromDate", required = false) LocalDate fromDate) {
         Instant instant = Optional.ofNullable(fromDate).map(date -> Instant.from(date)).orElse(Instant.MIN.plus(1000, DAYS));
         eventProcessingConfiguration.eventProcessors().values().stream()
                 .filter(processor -> processor instanceof TrackingEventProcessor)
@@ -55,6 +53,22 @@ public class RebuildsController {
                     processor.start();
                 });
         return ResponseEntity.ok("Rebuild in progess");
+    }
+
+    @PostMapping(name = "event-store/start-upgrade")
+    public ResponseEntity<String> eventStoreStartUpgrade(@RequestParam(name = "fromDate", required = false) LocalDate fromDate) {
+        eventStoreAdminServices.broadcastAggregateEventsForUpgrade();
+        return ResponseEntity.ok("Event Store 'copy & transform' process has started");
+    }
+
+    @GetMapping("event-store/source-upgrade-status")
+    public ResponseEntity<String> eventStoreSourceUpgradeStatus(@RequestParam(name = "fromDate", required = false) LocalDate fromDate) {
+        return ResponseEntity.ok("Not yet implemented");
+    }
+
+    @GetMapping("event-store/target-upgrade-status")
+    public ResponseEntity<String> eventStoreTargetUpgradeStatus(@RequestParam(name = "fromDate", required = false) LocalDate fromDate) {
+        return ResponseEntity.ok("Not yet implemented");
     }
 
 }

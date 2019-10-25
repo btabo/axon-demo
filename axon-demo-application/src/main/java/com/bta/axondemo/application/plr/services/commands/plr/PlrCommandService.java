@@ -1,4 +1,4 @@
-package com.bta.axondemo.application.plr.services.commands;
+package com.bta.axondemo.application.plr.services.commands.plr;
 
 import com.bta.axondemo.domain.plr.PlrAggregate;
 

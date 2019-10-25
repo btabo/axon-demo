@@ -1,6 +1,6 @@
 package com.bta.axondemo.exposition.rest.plr;
 
-import com.bta.axondemo.application.plr.services.commands.PlrCommandService;
+import com.bta.axondemo.application.plr.services.commands.plr.PlrCommandService;
 import com.bta.axondemo.exposition.rest.plr.dto.PlrDTO;
 import com.bta.axondemo.exposition.rest.plr.dto.SituationDTO;
 import io.swagger.annotations.Api;
