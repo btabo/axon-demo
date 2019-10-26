@@ -1,8 +1,8 @@
 package com.bta.axondemo.application.plr.services.queries.plr;
 
 import com.bta.axondemo.domain.plr.PlrAggregate;
-import com.bta.axondemo.domain.plr.events.v1.PlrCreatedEvent;
 import com.bta.axondemo.domain.plr.events.v1.PlrProfileAddedEvent;
+import com.bta.axondemo.domain.plr.events.v2.PlrCreatedEvent;
 import com.bta.axondemo.domain.plr.events.v2.SituationUpdatedEvent;
 import com.bta.axondemo.domain.plr.model.Profile;
 import com.bta.axondemo.domain.plr.model.Profiles;

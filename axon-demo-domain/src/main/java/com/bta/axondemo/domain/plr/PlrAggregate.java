@@ -2,9 +2,9 @@ package com.bta.axondemo.domain.plr;
 
 import com.bta.axondemo.domain.plr.commands.AddSituationCommand;
 import com.bta.axondemo.domain.plr.commands.CreatePlrCommand;
-import com.bta.axondemo.domain.plr.events.v1.PlrCreatedEvent;
 import com.bta.axondemo.domain.plr.events.v1.PlrProfileAddedEvent;
-import com.bta.axondemo.domain.plr.events.v2.SituationUpdatedEvent;
+import com.bta.axondemo.domain.plr.events.v2.PlrCreatedEvent;
+import com.bta.axondemo.domain.plr.events.v3.SituationUpdatedEvent;
 import com.bta.axondemo.domain.plr.model.Profile;
 import com.bta.axondemo.domain.plr.model.Profiles;
 import com.bta.axondemo.domain.plr.model.TransactionDescription;
@@ -21,6 +21,7 @@ import org.axonframework.modelling.command.AggregateMember;
 import org.axonframework.spring.stereotype.Aggregate;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 @Aggregate
 @Builder
@@ -47,6 +48,11 @@ public class PlrAggregate {
     private BigDecimal charges;
 
     /**
+     * Apport Personnel
+     **/
+    private BigDecimal personalContribution;
+
+    /**
      * Liste des profiles emprunteurs
      **/
     @AggregateMember
@@ -71,12 +77,22 @@ public class PlrAggregate {
     @CommandHandler
     public PlrAggregate(CreatePlrCommand command) {
         log.debug("Processing Command = " + command.toString());
-        AggregateLifecycle.apply(new PlrCreatedEvent(command.id, command.plr.transactionDescription.getLoanAmount(), command.plr.transactionDescription.getLoanTerm()));
+        AggregateLifecycle.apply(new PlrCreatedEvent(command.id, command.plr.transactionDescription.getLoanAmount(), command.plr.transactionDescription.getLoanTerm(), LocalDateTime.now()));
         command.plr.profiles.getProfiles().forEach(p -> AggregateLifecycle.apply(new PlrProfileAddedEvent(command.id, p)));
     }
 
     @EventSourcingHandler
     protected void on(PlrCreatedEvent event) {
+        log.debug("Applying Event = " + event.toString());
+        this.plrId = event.id;
+        this.transactionDescription = TransactionDescription.builder().fromTransactionDescription(this.transactionDescription)
+                .loanAmount(event.loanAmount)
+                .loanTerm(event.loanTerm)
+                .build();
+    }
+
+    @EventSourcingHandler
+    protected void on(com.bta.axondemo.domain.plr.events.v1.PlrCreatedEvent event) {
         log.debug("Applying Event = " + event.toString());
         this.plrId = event.id;
         this.transactionDescription = TransactionDescription.builder().fromTransactionDescription(this.transactionDescription)
@@ -101,7 +117,7 @@ public class PlrAggregate {
     @CommandHandler
     public void on(AddSituationCommand command) {
         log.debug("Processing Command = " + command.toString());
-        AggregateLifecycle.apply(new SituationUpdatedEvent(command.id, command.revenues, command.charges));
+        AggregateLifecycle.apply(new SituationUpdatedEvent(command.id, command.revenues, command.charges, BigDecimal.ZERO));
     }
 
     @EventSourcingHandler
@@ -109,5 +125,6 @@ public class PlrAggregate {
         log.debug("Applying Event = " + event.toString());
         this.revenues = event.revenues;
         this.charges = event.charges;
+        this.personalContribution = event.personalContribution;
     }
 }
