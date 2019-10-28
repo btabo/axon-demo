@@ -21,13 +21,13 @@ import static java.time.temporal.ChronoUnit.DAYS;
 @RestController(value = "Rebuild projections")
 @RequestMapping(value = "/api/admin")
 @Api(value = "Admin resource", description = "Rebuild projections & upgrade Event Store", tags = "Admin resource")
-public class AdminController {
+public class AdminResource {
 
     private final EventProcessingConfiguration eventProcessingConfiguration;
     private final EventStoreAdminServices eventStoreAdminServices;
 
     @Autowired
-    public AdminController(EventProcessingConfiguration eventProcessingConfiguration, EventStoreAdminServices eventStoreAdminServices) {
+    public AdminResource(EventProcessingConfiguration eventProcessingConfiguration, EventStoreAdminServices eventStoreAdminServices) {
         this.eventProcessingConfiguration = eventProcessingConfiguration;
         this.eventStoreAdminServices = eventStoreAdminServices;
     }

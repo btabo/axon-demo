@@ -2,6 +2,7 @@ package com.bta.axondemo.infra.sql.axon;
 
 import com.bta.axondemo.domain.admin.AdminRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.axonframework.eventsourcing.eventstore.DomainEventStream;
 import org.axonframework.eventsourcing.eventstore.jpa.DomainEventEntry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -19,4 +20,9 @@ public class AxonRepository implements AdminRepository {
     public Stream<DomainEventEntry> streamAllDomainEventEntries() {
         return em.createQuery("SELECT e FROM DomainEventEntry e order by aggregateIdentifier, sequenceNumber", DomainEventEntry.class).getResultStream();
     }
+
+    public void copyEvents(DomainEventStream stream) {
+
+    }
+
 }

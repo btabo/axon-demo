@@ -1,4 +1,7 @@
 spring:
+  profiles:
+    include:
+      - rabbitmq
   datasource:
     url: jdbc:mysql://localhost:3306/bta
     username: bta
@@ -9,4 +12,21 @@ spring:
     database-platform: org.hibernate.dialect.MySQL57Dialect
     hibernate.ddl-auto: update
     properties.hibernate.jdbc.lob.non_contextual_creation: true
+  rabbitmq:
+    host: localhost
+    port: 5672
 
+rabbitmq:
+  queueName: bta.queue
+  exchangeName: bta-exchange
+  routingKey: bta.routingkey
+
+axon:
+  amqp:
+    exchange: axondemo-plr-events-exchg
+    transaction-mode: transactional
+  eventhandling:
+    processors:
+      amqpEvents:
+        source: rabbitMQSpringAMQPMessageSource
+        mode: tracking

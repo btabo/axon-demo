@@ -3,13 +3,14 @@ package com.bta.axondemo.application.plr.services.queries.plr;
 import com.bta.axondemo.domain.plr.PlrAggregate;
 import com.bta.axondemo.domain.plr.events.v1.PlrProfileAddedEvent;
 import com.bta.axondemo.domain.plr.events.v2.PlrCreatedEvent;
-import com.bta.axondemo.domain.plr.events.v2.SituationUpdatedEvent;
+import com.bta.axondemo.domain.plr.events.v3.SituationUpdatedEvent;
 import com.bta.axondemo.domain.plr.model.Profile;
 import com.bta.axondemo.domain.plr.model.Profiles;
 import com.bta.axondemo.domain.plr.model.TransactionDescription;
 import com.bta.axondemo.domain.projections.PlrRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.axonframework.config.ProcessingGroup;
 import org.axonframework.eventhandling.EventHandler;
 import org.axonframework.eventsourcing.eventstore.EventStore;
 import org.axonframework.messaging.Message;
@@ -22,6 +23,7 @@ import java.util.stream.Collectors;
 @Service
 @AllArgsConstructor
 @Slf4j
+@ProcessingGroup("amqpEvents")
 public class PlrQueryServiceImpl implements PlrQueryService {
 
     private final EventStore eventStore;

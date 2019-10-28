@@ -6,9 +6,13 @@ logging:
   level:
     root: INFO
     com.bta: DEBUG
-    org.springframework.web: ERROR
-    org.hibernate.SQL: INFO
-    org.h2: INFO
+    org:
+      springframework:
+        web: ERROR
+        amqp: DEBUG
+      hibernate.SQL: INFO
+      h2: INFO
+
 
 axon:
   serializer:
